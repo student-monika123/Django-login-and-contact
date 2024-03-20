@@ -6,7 +6,9 @@ from blog.models import ContactUs
 from django.core.mail import EmailMessage 
 from django.contrib import messages
 from django.contrib.auth.models import User
+
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 
 
 def homepage(request):
@@ -21,12 +23,15 @@ def aboutus(request):
     # table =[f"2 x {i} ={2*i}" for i in range(1,11)]
     return render(request,"aboutus.html")#{"mytable":table}) 
 
+@login_required
 def contact(request):
     return render(request,"contact.html")
+
 
 def services(request):
     return render(request,"services.html")
 
+@login_required
 def servicesus(request):
     # ORM 
     my_data = ContactUs.objects.all().order_by("-id")
